@@ -1,0 +1,116 @@
+@import "@fontsource/fira-mono";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+}
+
+.animation-delay-1000 {
+	animation-delay: 1s;
+}
+.animation-delay-2000 {
+	animation-delay: 2s;
+}
+.animation-delay-3000 {
+	animation-delay: 3s;
+}
+.animation-delay-4000 {
+	animation-delay: 4s;
+}
+.animation-delay-5000 {
+	animation-delay: 5s;
+}
+
+.opti-gradient-01 {
+	background: linear-gradient(
+		to right,
+		#f20019,
+		#33137a,
+		#161415,
+		#222423,
+		#0333b4,
+		#015ad5,
+		#00a6f1,
+		#97d7e9,
+		#f9f5f2,
+		#f9f5f2,
+		#fbbd00,
+		#f76d02,
+		#f20019,
+		#770e7d,
+		#222423,
+		#161415,
+		#1c2121,
+		#0333b4,
+		#015ad5,
+		#00a6f1
+	);
+}
+
+.opti-01 {
+	background: linear-gradient(
+		to right,
+		#f20019,
+		#33137a,
+		#161415,
+		#222423,
+		#0333b4,
+		#015ad5,
+		#00a6f1,
+		#97d7e9,
+		#f9f5f2,
+		#f9f5f2,
+		#fbbd00,
+		#f76d02,
+		#f20019,
+		#770e7d,
+		#222423,
+		#161415,
+		#1c2121,
+		#0333b4,
+		#015ad5,
+		#00a6f1
+	);
+	background-size: 400% 400%;
+	animation: gradient 20s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes YtoM {
+	from { background-color: yellow; }
+	to { background-color: magenta; }
+}
+@keyframes CtoM {
+	from { background-color: cyan; }
+	to { background-color: magenta; }
+}
+
+@keyframes CtoY {
+	from { background-color: cyan; }
+	to { background-color: yellow; }
+}
+@keyframes MtoY {
+	from { background-color: magenta; }
+	to { background-color: yellow; }
+}
+
+@keyframes MtoC {
+	from { background-color: magenta; }
+	to { background-color: cyan; }
+}
+@keyframes YtoC {
+	from { background-color: yellow; }
+	to { background-color: cyan; }
+}
