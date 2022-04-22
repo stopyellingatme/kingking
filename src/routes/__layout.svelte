@@ -7,7 +7,7 @@
 <div class:dark={$shell.visual_mode === 'dark'} class="h-screen">
 	<Header />
 
-	<body class="bg-white dark:bg-black">
+	<body class="bg-white dark:bg-black h-full">
 		<div class="flex flex-col h-full dark:text-cyan-50">
 			<div class="flex items-center justify-center h-8 text-2xl">
 				&#8249;&nbsp;
