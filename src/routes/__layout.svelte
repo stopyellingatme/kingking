@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../app.css';
-	import Header from '$lib/header/header.svelte';
+	import Header from '$lib/header.svelte';
 	import shell from '$lib/store/shell.store';
 </script>
 
@@ -11,7 +11,7 @@
 		<div class="flex flex-col h-full dark:text-cyan-50">
 			<div class="flex items-center justify-center h-8 text-2xl">
 				&#8249;&nbsp;
-				<div class="w-screen h-[1px] mt-1 border-[1px] border-black dark:border-white" />
+				<div class="w-screen h-[2px] mt-1 opti-01" />
 				&nbsp;&#8250;
 			</div>
 

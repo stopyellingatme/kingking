@@ -4,9 +4,9 @@
 </script>
 
 <header class="flex justify-between h-10 bg-black">
-	<div class="flex items-center justify-between w-[155px] h-5 pl-2 mt-2">
+	<div class="flex items-center justify-between w-[95px] h-5 pl-2 mt-2">
 		<a href="https://kingking.io">
-			<span class="text-2xl text-yellow-50">TK - v1.0</span>
+			<span class="text-2xl text-yellow-50">TK</span>
 		</a>
 		<!-- Light/Dark Mode toggle -->
 		{#if $shell.visual_mode === "dark"}

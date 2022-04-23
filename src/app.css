@@ -76,6 +76,34 @@
 	animation: gradient 20s ease infinite;
 }
 
+.opti-02 {
+	background: linear-gradient(
+		to left,
+		#f20019,
+		#33137a,
+		#161415,
+		#222423,
+		#0333b4,
+		#015ad5,
+		#00a6f1,
+		#97d7e9,
+		#f9f5f2,
+		#f9f5f2,
+		#fbbd00,
+		#f76d02,
+		#f20019,
+		#770e7d,
+		#222423,
+		#161415,
+		#1c2121,
+		#0333b4,
+		#015ad5,
+		#00a6f1
+	);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
 @keyframes gradient {
 	0% {
 		background-position: 0% 50%;

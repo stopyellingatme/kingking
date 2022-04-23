@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount, tick } from "svelte";
-	import Circle from "$lib/circle.svelte";
+	import Concentric from "$lib/concentric.svelte";
 
 	let radiuses = [];
 	let rs = radiuses.join(", ");
@@ -39,55 +39,37 @@
 <div class="flex flex-col">
 	<div class="relative mt-[375px] h-[375px]">
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="magenta" styles="position: absolute;" />
-			{/each}
+			<Concentric color="magenta" />
 		</div>
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="yellow" styles="position: absolute; margin: -15px 6px 0 0" />
-			{/each}
+			<Concentric styles="position: absolute; margin: -15px 6px 0 0" />
 		</div>
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="cyan" styles="position: absolute; margin: 5px 0 0 17px" />
-			{/each}
+			<Concentric color="cyan" styles="position: absolute; margin: 5px 0 0 17px" />
 		</div>
 	</div>
 
 	<div class="relative mt-[250px] h-[475px]">
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="yellow" styles="position: absolute;" />
-			{/each}
+			<Concentric color="yellow" styles="position: absolute;" />
 		</div>
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="cyan" styles="position: absolute; margin: -15px 6px 0 0" />
-			{/each}
+			<Concentric color="cyan" styles="position: absolute; margin: -5px 0 0 17px" />
 		</div>
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="magenta" styles="position: absolute; margin: 5px 0 0 17px" />
-			{/each}
+			<Concentric color="magenta" styles="position: absolute; margin: 5px 0 0 17px" />
 		</div>
 	</div>
 
 	<div class="relative h-[375px] mt-[150px]">
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="cyan" styles="position: absolute;" />
-			{/each}
+			<Concentric color="cyan" styles="position: absolute;" />
 		</div>
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="magenta" styles="position: absolute; margin: -15px 6px 0 0" />
-			{/each}
+			<Concentric color="magenta" styles="position: absolute; margin: -15px 6px 0 1px" />
 		</div>
 		<div class="flex justify-center items-center">
-			{#each _rs as radi}
-				<Circle r={radi} color="yellow" styles="position: absolute; margin: 5px 0 0 17px" />
-			{/each}
+			<Concentric color="yellow" styles="position: absolute; margin: 5px 0 0 17px" />
 		</div>
 	</div>
 </div>
