@@ -26,7 +26,7 @@
 	const classes = "w-full h-8 my-1 rounded";
 </script>
 
-<div class="flex items-start justify-center h-full">
+<div class="flex items-start justify-center h-screen">
 	<div class="w-3/4 m-auto dark:text-cyan-50">
 		<OptiGradient />
 		<OptiGradient modifier={(hue) => (hue / 3).toFixed(0)} />

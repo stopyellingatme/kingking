@@ -4,7 +4,7 @@
 	import shell from '$lib/store/shell.store';
 </script>
 
-<div class:dark={$shell.visual_mode === 'dark'} class="h-screen">
+<div class:dark={$shell.visual_mode === 'dark'} class="h-full">
 	<Header />
 
 	<body class="bg-white dark:bg-black h-full">

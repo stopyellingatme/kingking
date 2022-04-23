@@ -14,7 +14,7 @@
 	export const prerender = true;
 </script>
 
-<div class="flex items-center justify-center flex-col h-full">
+<div class="flex items-center justify-center flex-col h-screen">
 	<h1>T.KING</h1>
 
 	<pre>

@@ -1,4 +1,4 @@
-<div class="h-full flex items-center justify-center">
+<div class="h-screen flex items-center justify-center">
 	<div class="flex items-center justify-center w-full h-full">
 		<div class="relative flex h-[400px] w-96">
 			<div
