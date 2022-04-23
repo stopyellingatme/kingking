@@ -92,7 +92,7 @@
 	</div>
 </div>
 
-<style>
+<!-- <style>
 	p {
 		color: #06b6d4;
 		color: #d946ef;
@@ -102,4 +102,4 @@
 		color: rgb(0, 255, 255, 75%);
 		color: rgb(255, 0, 255, 75%);
 	}
-</style>
+</style> -->
