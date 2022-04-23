@@ -1,0 +1,148 @@
+{
+  ".svelte-kit/build/index.js": {
+    "file": "index.js",
+    "src": ".svelte-kit/build/index.js",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/todos/index.ts": {
+    "file": "entries/endpoints/todos/index.ts.js",
+    "src": "src/routes/todos/index.ts",
+    "isEntry": true
+  },
+  "src/routes/__layout.svelte": {
+    "file": "entries/pages/__layout.svelte.js",
+    "src": "src/routes/__layout.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js",
+      "_shell.store-62cc48b7.js"
+    ],
+    "css": [
+      "assets/entries/pages/__layout.svelte-9f6cf192.css"
+    ],
+    "assets": [
+      "assets/fira-mono-cyrillic-ext-400-normal-3df7909e.woff2",
+      "assets/fira-mono-all-400-normal-1e3b098c.woff",
+      "assets/fira-mono-cyrillic-400-normal-c7d433fd.woff2",
+      "assets/fira-mono-greek-ext-400-normal-9e2fe623.woff2",
+      "assets/fira-mono-greek-400-normal-a8be01ce.woff2",
+      "assets/fira-mono-latin-ext-400-normal-6bfabd30.woff2",
+      "assets/fira-mono-latin-400-normal-e43b3538.woff2"
+    ]
+  },
+  ".svelte-kit/runtime/components/error.svelte": {
+    "file": "entries/pages/error.svelte.js",
+    "src": ".svelte-kit/runtime/components/error.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/index.svelte": {
+    "file": "entries/pages/index.svelte.js",
+    "src": "src/routes/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js",
+      "src/routes/home/index.svelte",
+      "src/routes/home/home.svelte"
+    ]
+  },
+  "src/routes/home/index.svelte": {
+    "file": "entries/pages/home/index.svelte.js",
+    "src": "src/routes/home/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js",
+      "src/routes/home/home.svelte"
+    ]
+  },
+  "src/routes/home/home.svelte": {
+    "file": "entries/pages/home/home.svelte.js",
+    "src": "src/routes/home/home.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/word_web/index.svelte": {
+    "file": "entries/pages/word_web/index.svelte.js",
+    "src": "src/routes/word_web/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/about.svelte": {
+    "file": "entries/pages/about.svelte.js",
+    "src": "src/routes/about.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/todos/index.svelte": {
+    "file": "entries/pages/todos/index.svelte.js",
+    "src": "src/routes/todos/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ],
+    "css": [
+      "assets/entries/pages/todos/index.svelte-d4170bf6.css"
+    ]
+  },
+  "src/routes/fun/index.svelte": {
+    "file": "entries/pages/fun/index.svelte.js",
+    "src": "src/routes/fun/index.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/fun/gradients.svelte": {
+    "file": "entries/pages/fun/gradients.svelte.js",
+    "src": "src/routes/fun/gradients.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/fun/circular.svelte": {
+    "file": "entries/pages/fun/circular.svelte.js",
+    "src": "src/routes/fun/circular.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js",
+      "_shell.store-62cc48b7.js"
+    ]
+  },
+  "src/routes/fun/zeal.svelte": {
+    "file": "entries/pages/fun/zeal.svelte.js",
+    "src": "src/routes/fun/zeal.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "src/routes/fun/m1.svelte": {
+    "file": "entries/pages/fun/m1.svelte.js",
+    "src": "src/routes/fun/m1.svelte",
+    "isEntry": true,
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  },
+  "_index-0145b198.js": {
+    "file": "chunks/index-0145b198.js"
+  },
+  "_shell.store-62cc48b7.js": {
+    "file": "chunks/shell.store-62cc48b7.js",
+    "imports": [
+      "_index-0145b198.js"
+    ]
+  }
+}
