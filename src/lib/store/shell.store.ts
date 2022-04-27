@@ -5,7 +5,7 @@ import { writable } from "svelte/store";
 const routes = [
   { path: "/", name: "///", children: [] },
   { path: "/fun", name: "SPACE", children: [] },
-  { path: "/about", name: "M3", children: [] },
+  { path: "/about", name: "ME", children: [] },
 ]
 
 function init() {
