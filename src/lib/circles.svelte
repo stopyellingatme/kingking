@@ -42,7 +42,7 @@
 			<Concentric color="magenta" />
 		</div>
 		<div class="flex justify-center items-center">
-			<Concentric styles="position: absolute; margin: -15px 6px 0 0" />
+			<Concentric styles="position: absolute; margin: -19px 6px 0 0" />
 		</div>
 		<div class="flex justify-center items-center">
 			<Concentric color="cyan" styles="position: absolute; margin: 5px 0 0 17px" />

@@ -1,5 +1,5 @@
 <script context="module">
-	import { browser, dev } from '$app/env';
+	import { browser, dev } from "$app/env";
 
 	// we don't need any JS on this page, though we'll load
 	// it in dev so that we get hot module replacement...
@@ -14,10 +14,12 @@
 	export const prerender = true;
 </script>
 
-<div class="flex items-center justify-center flex-col h-screen">
+<div
+	class="flex items-center justify-center flex-col h-screen flex-wrap w-full whitespace-pre-line"
+>
 	<h1>T.KING</h1>
 
-	<pre>
-		Hello, this is my personal website.
+	<pre class="w-3/4 whitespace-pre-line">
+		Hello, this is my personal website. And I will do with it as I please! Art projects for whatever!
 	</pre>
 </div>
