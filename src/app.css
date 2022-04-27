@@ -117,28 +117,28 @@
 }
 
 @keyframes YtoM {
-	from { background-color: yellow; }
-	to { background-color: magenta; }
+	from { border-color: yellow; }
+	to { border-color: magenta; }
 }
 @keyframes CtoM {
-	from { background-color: cyan; }
-	to { background-color: magenta; }
+	from { border-color: cyan; }
+	to { border-color: magenta; }
 }
 
 @keyframes CtoY {
-	from { background-color: cyan; }
-	to { background-color: yellow; }
+	from { border-color: cyan; }
+	to { border-color: yellow; }
 }
 @keyframes MtoY {
-	from { background-color: magenta; }
-	to { background-color: yellow; }
+	from { border-color: magenta; }
+	to { border-color: yellow; }
 }
 
 @keyframes MtoC {
-	from { background-color: magenta; }
-	to { background-color: cyan; }
+	from { border-color: magenta; }
+	to { border-color: cyan; }
 }
 @keyframes YtoC {
-	from { background-color: yellow; }
-	to { background-color: cyan; }
+	from { border-color: yellow; }
+	to { border-color: cyan; }
 }

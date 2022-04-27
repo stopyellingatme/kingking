@@ -34,54 +34,55 @@
 			}
 		}
 	}
+
+	let circles = [
+		{
+			color: "magenta",
+			styles: "position: absolute; animation: MtoC 10s ease infinite alternate;"
+		},
+		{
+			color: "yellow",
+			styles:
+				"position: absolute; margin: -19px 60px 0 0; animation: YtoM 14s ease infinite alternate;"
+		},
+		{
+			color: "cyan",
+			styles:
+				"position: absolute; margin: 40px 0 0 74px; animation: CtoY 25s ease infinite alternate;"
+		}
+	];
+
+	let other_circles = [
+		{
+			color: "yellow",
+			styles: "position: absolute; animation: YtoM 10s ease infinite alternate;"
+		},
+		{
+			color: "cyan",
+			styles:
+				"position: absolute; margin: -9px 93px 0 0px; animation: CtoY 14s ease infinite alternate;"
+		},
+		{
+			color: "magenta",
+			styles:
+				"position: absolute; margin: 57px 0 0 -74px; animation: MtoC 25s ease infinite alternate;"
+		}
+	];
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col h-full">
 	<div class="relative mt-[375px] h-[375px]">
-		<div class="flex justify-center items-center">
-			<Concentric color="magenta" />
-		</div>
-		<div class="flex justify-center items-center">
-			<Concentric styles="position: absolute; margin: -19px 6px 0 0" />
-		</div>
-		<div class="flex justify-center items-center">
-			<Concentric color="cyan" styles="position: absolute; margin: 5px 0 0 17px" />
-		</div>
+		{#each other_circles as { color, styles }}
+			<div class="flex justify-center items-center">
+				<Concentric {color} {styles} />
+			</div>
+		{/each}
 	</div>
-
-	<div class="relative mt-[250px] h-[475px]">
-		<div class="flex justify-center items-center">
-			<Concentric color="yellow" styles="position: absolute;" />
-		</div>
-		<div class="flex justify-center items-center">
-			<Concentric color="cyan" styles="position: absolute; margin: -5px 0 0 17px" />
-		</div>
-		<div class="flex justify-center items-center">
-			<Concentric color="magenta" styles="position: absolute; margin: 5px 0 0 17px" />
-		</div>
-	</div>
-
-	<div class="relative h-[375px] mt-[150px]">
-		<div class="flex justify-center items-center">
-			<Concentric color="cyan" styles="position: absolute;" />
-		</div>
-		<div class="flex justify-center items-center">
-			<Concentric color="magenta" styles="position: absolute; margin: -15px 6px 0 1px" />
-		</div>
-		<div class="flex justify-center items-center">
-			<Concentric color="yellow" styles="position: absolute; margin: 5px 0 0 17px" />
-		</div>
+	<div class="relative pt-[275px] h-[600px]">
+		{#each circles as { color, styles }}
+			<div class="flex justify-center items-center">
+				<Concentric {color} {styles} />
+			</div>
+		{/each}
 	</div>
 </div>
-
-<!-- <style>´
-	p {
-		color: #06b6d4;
-		color: #d946ef;
-		color: #eab308;
-
-		color: rgb(255, 255, 0, 75%);
-		color: rgb(0, 255, 255, 75%);
-		color: rgb(255, 0, 255, 75%);
-	}
-</style> -->
