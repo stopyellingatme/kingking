@@ -38,17 +38,17 @@
 	let circles = [
 		{
 			color: "magenta",
-			styles: "position: absolute; animation: MtoC 10s ease infinite alternate;"
+			styles: "position: absolute; animation: MtoC 5s ease infinite alternate;"
 		},
 		{
 			color: "yellow",
 			styles:
-				"position: absolute; margin: -19px 60px 0 0; animation: YtoM 14s ease infinite alternate;"
+				"position: absolute; margin: -90px 60px 0 0; animation: YtoM 7s ease infinite alternate;"
 		},
 		{
 			color: "cyan",
 			styles:
-				"position: absolute; margin: 40px 0 0 74px; animation: CtoY 25s ease infinite alternate;"
+				"position: absolute; margin: 40px 0 0 74px; animation: CtoY 12s ease infinite alternate;"
 		}
 	];
 
