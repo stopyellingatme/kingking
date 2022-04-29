@@ -3,4 +3,4 @@ command = "npm run build"
 publish = "build/"
 
 [functions]
-    node_bundler = "vite"
+    node_bundler = "esbuild"
