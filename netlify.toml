@@ -1,6 +1,16 @@
+# [build]
+# command = "npm run build"
+# publish = "build/"
+
+# [functions]
+#     node_bundler = "esbuild"
 [build]
 command = "npm run build"
-publish = "build/"
+publish = "build"
+
+[dev]
+command = "svelte-kit dev"
 
 [functions]
-    node_bundler = "esbuild"
+directory = "netlify/functions"
+node_bundler = "esbuild"
