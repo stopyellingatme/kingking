@@ -1,0 +1,144 @@
+@import "@fontsource/fira-mono";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+}
+
+.animation-delay-1000 {
+	animation-delay: 1s;
+}
+.animation-delay-2000 {
+	animation-delay: 2s;
+}
+.animation-delay-3000 {
+	animation-delay: 3s;
+}
+.animation-delay-4000 {
+	animation-delay: 4s;
+}
+.animation-delay-5000 {
+	animation-delay: 5s;
+}
+
+.opti-gradient-01 {
+	background: linear-gradient(
+		to right,
+		#f20019,
+		#33137a,
+		#161415,
+		#222423,
+		#0333b4,
+		#015ad5,
+		#00a6f1,
+		#97d7e9,
+		#f9f5f2,
+		#f9f5f2,
+		#fbbd00,
+		#f76d02,
+		#f20019,
+		#770e7d,
+		#222423,
+		#161415,
+		#1c2121,
+		#0333b4,
+		#015ad5,
+		#00a6f1
+	);
+}
+
+.opti-01 {
+	background: linear-gradient(
+		to right,
+		rgb(242, 0, 25),
+		rgb(51, 19, 122),
+		rgb(22, 20, 21),
+		rgb(34, 36, 35),
+		rgb(3, 51, 180),
+		rgb(1, 90, 213),
+		rgb(0, 166, 241),
+		rgb(151, 215, 233),
+		rgb(249, 245, 242),
+		rgb(249, 245, 242),
+		rgb(251, 189, 0),
+		rgb(247, 109, 2),
+		rgb(242, 0, 25),
+		rgb(119, 14, 125),
+		rgb(34, 36, 35),
+		rgb(22, 20, 21),
+		rgb(28, 33, 33),
+		rgb(3, 51, 180),
+		rgb(1, 90, 213),
+		rgb(0, 166, 241)
+	);
+	background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
+.opti-02 {
+	background: linear-gradient(
+		to left,
+		#f20019,
+		#33137a,
+		#161415,
+		#222423,
+		#0333b4,
+		#015ad5,
+		#00a6f1,
+		#97d7e9,
+		#f9f5f2,
+		#f9f5f2,
+		#fbbd00,
+		#f76d02,
+		#f20019,
+		#770e7d,
+		#222423,
+		#161415,
+		#1c2121,
+		#0333b4,
+		#015ad5,
+		#00a6f1
+	);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes YtoM {
+	from { border-color: yellow; }
+	to { border-color: magenta; }
+}
+@keyframes CtoM {
+	from { border-color: cyan; }
+	to { border-color: magenta; }
+}
+
+@keyframes CtoY {
+	from { border-color: cyan; }
+	to { border-color: yellow; }
+}
+@keyframes MtoY {
+	from { border-color: magenta; }
+	to { border-color: yellow; }
+}
+
+@keyframes MtoC {
+	from { border-color: magenta; }
+	to { border-color: cyan; }
+}
+@keyframes YtoC {
+	from { border-color: yellow; }
+	to { border-color: cyan; }
+}
