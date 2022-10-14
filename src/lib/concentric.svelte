@@ -2,8 +2,8 @@
 	import { onMount, tick } from "svelte";
 	import Circle from "$lib/circle.svelte";
 
-	export let radii = 150;
-	export let dist = 4;
+	export let radii = 75;
+	export let dist = 7;
   export let color = "yellow";
   export let styles = "position: absolute;";
 
