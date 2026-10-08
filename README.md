@@ -1,38 +1,34 @@
-# create-svelte
+# TK's Place on the Web
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is my personal site. You can find my credentials and some experiments.
 
-## Creating a project
+Live at [kingking.io](https://kingking.io).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Develop
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Use Node 18 (see `.nvmrc`).
 
 ```bash
+npm ci
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+## Build
 
 ```bash
-npm run build
+npm run build     # writes the static site to build/
+npm run preview   # serves build/ on http://localhost:4173
+npm test          # Playwright smoke test against the preview server
 ```
 
-You can preview the production build with `npm run preview`.
+The site is fully static. `@sveltejs/adapter-static` prerenders every page.
+Do not add server routes (`+page.server.ts`, `+server.ts`, `hooks.server.ts`).
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+The SvelteKit version is pinned to a 1.0 pre-release. Keep `package-lock.json` in git.
+The npm `next` tag now points to a much newer major version.
+
+## Deploy
+
+A push to `main` runs `.github/workflows/deploy.yml`.
+The workflow builds the site and publishes it to GitHub Pages.
+The custom domain `kingking.io` is set in the repository under Settings → Pages.
