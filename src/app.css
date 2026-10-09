@@ -4,6 +4,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
+	--font-mono: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
 	--animate-blob: blob 7s infinite;
 
 	@keyframes blob {
@@ -153,5 +155,15 @@
 	}
 	to {
 		border-color: cyan;
+	}
+}
+
+/* Stop the animations for visitors who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation: none !important;
+		transition: none !important;
 	}
 }

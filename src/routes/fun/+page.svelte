@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { experiments } from '$lib/experiments';
 	import Meta from '$lib/meta.svelte';
 </script>
 
@@ -6,9 +7,8 @@
 
 <div class="flex flex-1 items-center justify-center">
 	<ul class="text-center text-4xl leading-loose">
-		<li><a href="/fun/gradients">GRADIENTS</a></li>
-		<li><a href="/fun/circular">CIRCULAR</a></li>
-		<li><a href="/fun/m1">M1 &#8249;-&#8250; TK</a></li>
-		<li><a href="/fun/zeal">ZEAL</a></li>
+		{#each experiments as experiment (experiment.slug)}
+			<li><a href="/fun/{experiment.slug}">{experiment.name}</a></li>
+		{/each}
 	</ul>
 </div>
