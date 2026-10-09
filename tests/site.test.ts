@@ -49,12 +49,43 @@ test('pages do not scroll when the content fits', async ({ page }) => {
 	expect(overflow).toBeLessThanOrEqual(0);
 });
 
-test('the circle count input changes the number of rings', async ({ page }) => {
+test('the rings slider changes the number of rings, and a ring set can be dragged', async ({
+	page
+}) => {
 	await page.goto('/fun/circular');
-	const rings = page.locator('.rounded-full');
+	const rings = page.locator('g.rings circle:not([role="button"])');
 	await expect(rings).toHaveCount(3 * 75);
-	await page.getByLabel('# of Circles').fill('10');
+	await page.getByRole('slider', { name: 'RINGS' }).fill('10');
 	await expect(rings).toHaveCount(3 * 10);
+
+	const handle = page.getByRole('button', { name: /Move the yellow rings/ });
+	const group = page.locator('g.rings').first();
+	const before = await group.getAttribute('transform');
+	const box = (await handle.boundingBox())!;
+	await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+	await page.mouse.down();
+	await page.mouse.move(box.x + 150, box.y + 80, { steps: 5 });
+	await page.mouse.up();
+	await expect(group).not.toHaveAttribute('transform', before!);
+});
+
+test('the gradient editor adds colours and changes the gradient type', async ({ page }) => {
+	await page.goto('/fun/gradients');
+	const swatches = page.getByRole('list', { name: 'Colours' }).getByLabel(/^Colour \d+$/);
+	const count = await swatches.count();
+	await page.getByRole('button', { name: '+ ADD' }).click();
+	await expect(swatches).toHaveCount(count + 1);
+
+	await page.getByRole('button', { name: 'CONIC' }).click();
+	await expect(page.locator('code')).toContainText('conic-gradient');
+});
+
+test('a tap on the zeal page adds a blob', async ({ page }) => {
+	await page.goto('/fun/zeal');
+	const blobs = page.locator('svg ellipse');
+	await expect(blobs).toHaveCount(11);
+	await page.locator('svg[role="img"]').click({ position: { x: 100, y: 100 } });
+	await expect(blobs).toHaveCount(12);
 });
 
 test('unknown URLs show the 404 page', async ({ page }) => {

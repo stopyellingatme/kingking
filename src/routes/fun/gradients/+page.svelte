@@ -1,20 +1,21 @@
 <script lang="ts">
 	import Gradient from '$lib/gradient.svelte';
+	import GradientBars from '$lib/gradient_bars.svelte';
 	import Meta from '$lib/meta.svelte';
-	import OptiGradient from '$lib/opti_gradient.svelte';
 </script>
 
-<Meta title="Gradients · TK" description="Animated colour gradients and a gradient editor." />
+<Meta
+	title="Gradients · TK"
+	description="Colour gradients that flow at different speeds, and an editor to make your own."
+/>
 
-<div class="flex flex-1 items-center justify-center py-8">
-	<div class="w-3/4">
-		<OptiGradient />
-		<OptiGradient modifier={(hue) => hue / 3} />
-		<OptiGradient modifier={(hue) => hue / 2} />
-		<OptiGradient rotate />
-		<OptiGradient modifier={(hue) => hue * 2} />
-		<OptiGradient modifier={(hue) => hue * 3} />
-		<div class="h-12"></div>
-		<Gradient with_swatch />
-	</div>
+<div class="flex flex-1 flex-col items-center gap-12 px-4 py-8 sm:px-8">
+	<section class="w-full max-w-4xl">
+		<h1 class="mb-4 text-xl">FLOW</h1>
+		<GradientBars />
+	</section>
+	<section class="w-full max-w-4xl">
+		<h2 class="mb-4 text-xl">MAKE YOUR OWN</h2>
+		<Gradient />
+	</section>
 </div>

@@ -7,6 +7,40 @@
 	--font-mono: 'Fira Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
 	--animate-blob: blob 7s infinite;
+	--animate-flow: flow 20s linear infinite;
+	--animate-tk-spin: tk-spin 14s linear infinite;
+	--animate-tk-sheen: tk-sheen 7s ease-in-out infinite;
+
+	/* Use on an element that is twice as wide as its parent and holds the strip two times. */
+	@keyframes flow {
+		to {
+			transform: translateX(-50%);
+		}
+	}
+
+	@keyframes tk-spin {
+		from {
+			--tk-angle: 300deg;
+		}
+		to {
+			--tk-angle: 660deg;
+		}
+	}
+
+	/* A band of light moves across the text, then waits. */
+	@keyframes tk-sheen {
+		0% {
+			background-position:
+				100% 0,
+				0 0;
+		}
+		45%,
+		100% {
+			background-position:
+				0% 0,
+				0 0;
+		}
+	}
 
 	@keyframes blob {
 		0%,
@@ -25,9 +59,49 @@
 	}
 }
 
+/* A transition with a small overshoot, so changes in size bounce. */
+@utility bouncy {
+	transition-property: height, width, transform;
+	transition-duration: 500ms;
+	transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@utility btn {
+	cursor: pointer;
+	user-select: none;
+	border: 1px solid currentColor;
+	padding: 0.25rem 0.5rem;
+	transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	&:hover,
+	&[aria-pressed='true'] {
+		background-color: var(--color-black);
+		color: var(--color-white);
+	}
+
+	@variant dark {
+		&:hover,
+		&[aria-pressed='true'] {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+	}
+
+	&:active {
+		transform: scale(0.92);
+	}
+}
+
+/* A registered property can animate, so the conic gradient can turn. */
+@property --tk-angle {
+	syntax: '<angle>';
+	inherits: true;
+	initial-value: 300deg;
+}
+
 @utility bg-tk-conic {
 	background-image: conic-gradient(
-		from 300deg,
+		from var(--tk-angle),
 		var(--color-red-400),
 		var(--color-amber-100),
 		var(--color-sky-500),
@@ -39,30 +113,16 @@
 	);
 }
 
-.opti-gradient-01 {
-	background: linear-gradient(
-		to right,
-		#f20019,
-		#33137a,
-		#161415,
-		#222423,
-		#0333b4,
-		#015ad5,
-		#00a6f1,
-		#97d7e9,
-		#f9f5f2,
-		#f9f5f2,
-		#fbbd00,
-		#f76d02,
-		#f20019,
-		#770e7d,
-		#222423,
-		#161415,
-		#1c2121,
-		#0333b4,
-		#015ad5,
-		#00a6f1
-	);
+@utility tk-sheen {
+	background-image:
+		linear-gradient(110deg, transparent 40%, rgb(255 255 255 / 0.85) 50%, transparent 60%),
+		linear-gradient(to bottom right, var(--color-gray-600), var(--color-white));
+	background-size:
+		300% 100%,
+		100% 100%;
+	background-repeat: no-repeat;
+	background-clip: text;
+	color: transparent;
 }
 
 .opti-01,
@@ -135,26 +195,26 @@
 
 @keyframes YtoM {
 	from {
-		border-color: yellow;
+		color: yellow;
 	}
 	to {
-		border-color: magenta;
+		color: magenta;
 	}
 }
 @keyframes CtoY {
 	from {
-		border-color: cyan;
+		color: cyan;
 	}
 	to {
-		border-color: yellow;
+		color: yellow;
 	}
 }
 @keyframes MtoC {
 	from {
-		border-color: magenta;
+		color: magenta;
 	}
 	to {
-		border-color: cyan;
+		color: cyan;
 	}
 }
 
