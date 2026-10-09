@@ -1,25 +1,18 @@
 <script lang="ts">
-	import { onMount, tick } from "svelte";
-	import Circle from "$lib/circle.svelte";
+	import Circle from '$lib/circle.svelte';
 
-	export let radii = 75;
-	export let dist = 7;
-  export let color = "yellow";
-  export let styles = "position: absolute;";
+	interface Props {
+		count?: number;
+		dist?: number;
+		color?: string;
+		styles?: string;
+	}
 
-	let radiuses = [];
-	let rs = radiuses.join(", ");
-	$: _rs = rs.split(", ");
+	let { count = 75, dist = 7, color = 'yellow', styles = 'position: absolute;' }: Props = $props();
 
-	onMount(() => {
-		tick();
-		for (let i = 1; radii >= i; ++i) {
-			radiuses.push(`${i * dist}px`);
-		}
-		rs = radiuses.join(", ");
-	});
+	const radii = $derived(Array.from({ length: count }, (_, i) => `${(i + 1) * dist}px`));
 </script>
 
-{#each _rs as radi}
-	<Circle r={radi} color={color} {styles} />
+{#each radii as r (r)}
+	<Circle {r} {color} {styles} />
 {/each}

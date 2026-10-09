@@ -1,9 +1,13 @@
-<div
-	class="flex items-center justify-center flex-col h-screen flex-wrap w-full whitespace-pre-line"
->
-	<h1>T.KING</h1>
+<script lang="ts">
+	import Meta from '$lib/meta.svelte';
+</script>
 
-	<pre class="w-3/4 whitespace-pre-line text-center">
-		Hello, this is my personal website. And I will do with it as I please! Art projects for whatever!
-	</pre>
+<Meta title="Me · TK" description="About T. King and this site." />
+
+<div class="flex w-full flex-1 flex-col items-center justify-center gap-4">
+	<h1>T.KING</h1>
+	<p class="w-3/4 text-center font-mono">
+		Hello, this is my personal website. And I will do with it as I please! Art projects for
+		whatever!
+	</p>
 </div>

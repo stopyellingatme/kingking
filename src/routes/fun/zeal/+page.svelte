@@ -1,5 +1,7 @@
-<script>
-	const blob_items = [
+<script lang="ts">
+	import Meta from '$lib/meta.svelte';
+
+	const blobs = [
 		{ color: 'bg-amber-400', delay: 0 },
 		{ color: 'bg-teal-400', delay: 2000 },
 		{ color: 'bg-teal-400', delay: 1000 },
@@ -11,20 +13,17 @@
 		{ color: 'bg-indigo-400', delay: 2000 },
 		{ color: 'bg-indigo-400', delay: 1000 }
 	];
-
-	const classes = 'relative p-32 w-32 h-32 rounded-full opacity-70 filter blur-xl animate-blob';
-	// mix-blend-multiply
 </script>
 
-<div class="flex items-start justify-center min-h-screen px-8 py-48">
-	<div class="relative flex flex-wrap w-full h-full">
-		<!-- Blobs -->
-		{#each blob_items as item}
-			{#if item.delay !== 0}
-				<div class="{classes} {item.color} animation-delay-{item.delay}" />
-			{:else}
-				<div class="{classes} {item.color}" />
-			{/if}
+<Meta title="Zeal · TK" description="Soft blobs of colour that move slowly." />
+
+<div class="flex flex-1 items-start justify-center px-8 py-48">
+	<div class="relative flex h-full w-full flex-wrap">
+		{#each blobs as blob, i (i)}
+			<div
+				class="animate-blob relative h-32 w-32 rounded-full p-32 opacity-70 blur-xl {blob.color}"
+				style="animation-delay: {blob.delay}ms"
+			></div>
 		{/each}
 	</div>
 </div>

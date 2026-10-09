@@ -1,37 +1,32 @@
 <script lang="ts">
 	import '../app.css';
 	import Header from '$lib/header.svelte';
-	import shell from '$lib/store/shell.store';
+
+	let { children } = $props();
 </script>
 
-<div class:dark={$shell.visual_mode === 'dark'} class="h-full">
+<div class="flex min-h-dvh flex-col">
 	<Header />
 
-	<body class="bg-white dark:bg-black h-full">
-		<div class="flex flex-col h-full dark:text-cyan-50">
-			<div class="flex items-center justify-center h-8 text-2xl">
-				&#8249;&nbsp;
-				<div class="w-screen h-[2px] mt-1 opti-01" />
-				&nbsp;&#8250;
-			</div>
+	<div class="flex h-8 items-center justify-center text-2xl" aria-hidden="true">
+		&#8249;&nbsp;
+		<div class="opti-01 mt-1 h-[2px] w-full"></div>
+		&nbsp;&#8250;
+	</div>
 
-			<div class="flex content-center justify-center h-full">
-				<div class="flex flex-col items-center justify-center text-2xl">
-					&#8593;
-					<div class="w-[1px] h-full border-[1px] border-black dark:border-white" />
-					&#8595;
-				</div>
-				<main class="w-full">
-					<slot />
-				</main>
-				<div class="flex flex-col items-center justify-center text-2xl">
-					&#8593;
-					<div class="w-[1px] h-full border-[1px] border-black dark:border-white" />
-					&#8595;
-				</div>
-			</div>
+	<div class="flex flex-1">
+		<div class="flex flex-col items-center justify-center text-2xl" aria-hidden="true">
+			&#8593;
+			<div class="w-px flex-1 border border-black dark:border-white"></div>
+			&#8595;
 		</div>
-	</body>
-
-	<!-- <Footer /> -->
+		<main class="flex w-full min-w-0 flex-col">
+			{@render children()}
+		</main>
+		<div class="flex flex-col items-center justify-center text-2xl" aria-hidden="true">
+			&#8593;
+			<div class="w-px flex-1 border border-black dark:border-white"></div>
+			&#8595;
+		</div>
+	</div>
 </div>

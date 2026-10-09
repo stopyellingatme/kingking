@@ -1,15 +1,14 @@
-<script>
-	import shell from "$lib/store/shell.store";
+<script lang="ts">
+	interface Props {
+		r?: string;
+		color?: string;
+		styles?: string;
+	}
 
-	export let r = "100px";
-	export let color = $shell.visual_mode === "dark" ? "white" : "black";
-	export let styles = null; // string of styles
-
-	$: w = r;
-	$: h = r;
+	let { r = '100px', color = 'currentColor', styles = '' }: Props = $props();
 </script>
 
 <div
-	style="width: {w}; height: {h}; background-color: transparent; border-color: {color}; {styles}"
-	class="rounded-full border-[1px]"
-/>
+	style="width: {r}; height: {r}; border-color: {color}; {styles}"
+	class="rounded-full border"
+></div>

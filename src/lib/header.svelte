@@ -1,46 +1,55 @@
 <script lang="ts">
-	import { page } from "$app/stores";
-	import shell from "$lib/store/shell.store";
+	import { page } from '$app/state';
+
+	const routes = [
+		{ path: '/', name: '///' },
+		{ path: '/fun', name: 'SPACE' },
+		{ path: '/about', name: 'ME' }
+	];
+
+	function isActive(path: string) {
+		const current = page.url.pathname;
+		return path === '/' ? current === '/' : current === path || current.startsWith(`${path}/`);
+	}
+
+	function toggleTheme() {
+		const dark = document.documentElement.classList.toggle('dark');
+		try {
+			localStorage.setItem('theme', dark ? 'dark' : 'light');
+		} catch {
+			// Private windows can block storage. The theme still changes for this visit.
+		}
+	}
 </script>
 
-<header class="flex justify-between h-10 bg-black">
-	<div class="flex items-center justify-between w-[115px] h-5 pl-2 mt-2">
-		<a href="/">
-			<span class="text-2xl text-yellow-50">TK&nbsp;&#8592;</span>
-		</a>
-		<!-- Light/Dark Mode toggle -->
-		{#if $shell.visual_mode === "dark"}
-			<span
-				title="Toggle Light Mode"
-				class="cursor-pointer select-none"
-				on:click={shell.toggleVisialMode}>☀️</span
-			>
-		{:else}
-			<span
-				title="Toggle Dark Mode"
-				class="cursor-pointer select-none"
-				on:click={shell.toggleVisialMode}>🌙</span
-			>
-		{/if}
+<header class="flex h-10 items-center justify-between bg-black px-2">
+	<div class="flex w-[115px] items-center justify-between">
+		<a href="/" class="text-2xl text-yellow-50">TK&nbsp;&#8592;</a>
+		<button
+			type="button"
+			class="cursor-pointer select-none"
+			aria-label="Toggle dark mode"
+			title="Toggle dark mode"
+			onclick={toggleTheme}
+		>
+			<span class="dark:hidden">🌙</span>
+			<span class="hidden dark:inline">☀️</span>
+		</button>
 	</div>
 
-	<nav class="h-8 mt-2">
-		<ul class="flex items-center justify-between text-cyan-50">
-			<!-- Generate the links -->
-			{#each $shell.routes as route}
-				<!-- If it's the home link then we check for strict equality -->
-				{#if route.path === "/"}
-					<li class="px-4" class:font-bold={$page.url.pathname === route.path}>
-						<a sveltekit:prefetch href={route.path}>{route.name}</a>
-					</li>
-				{:else}
-					<li class="px-2" class:font-bold={$page.url.pathname.includes(route.path)}>
-						<a sveltekit:prefetch href={route.path}>{route.name}</a>
-					</li>
-				{/if}
+	<nav>
+		<ul class="flex items-center text-cyan-50">
+			{#each routes as route (route.path)}
+				<li class={route.path === '/' ? 'px-4' : 'px-2'}>
+					<a
+						href={route.path}
+						class:font-bold={isActive(route.path)}
+						aria-current={isActive(route.path) ? 'page' : undefined}>{route.name}</a
+					>
+				</li>
 			{/each}
 		</ul>
 	</nav>
 
-	<div class="px-[40px]" />
+	<div class="w-[115px]"></div>
 </header>

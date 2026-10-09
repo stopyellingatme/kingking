@@ -6,7 +6,7 @@ Live at [kingking.io](https://kingking.io).
 
 ## Develop
 
-Use Node 18 (see `.nvmrc`).
+Use Node 24 (see `.nvmrc`).
 
 ```bash
 npm ci
@@ -18,14 +18,19 @@ npm run dev
 ```bash
 npm run build     # writes the static site to build/
 npm run preview   # serves build/ on http://localhost:4173
-npm test          # Playwright smoke test against the preview server
+npm test          # Playwright tests against the preview server
+npm run check     # svelte-check type check
+npm run lint      # Prettier and ESLint
 ```
+
+Before you run the tests for the first time, run `npx playwright install chromium`.
 
 The site is fully static. `@sveltejs/adapter-static` prerenders every page.
 Do not add server routes (`+page.server.ts`, `+server.ts`, `hooks.server.ts`).
 
-The SvelteKit version is pinned to a 1.0 pre-release. Keep `package-lock.json` in git.
-The npm `next` tag now points to a much newer major version.
+The site uses SvelteKit 2, Svelte 5 (runes), and Tailwind CSS 4.
+Tailwind is configured in `src/app.css`. There is no `tailwind.config` file.
+The dark theme uses the `dark` class on `<html>`. A script in `src/app.html` sets this class before the first paint.
 
 ## Deploy
 

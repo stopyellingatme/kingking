@@ -1,59 +1,48 @@
 <script lang="ts">
-	import { onMount, tick } from "svelte";
-	import Concentric from "$lib/concentric.svelte";
+	import Concentric from '$lib/concentric.svelte';
 
-	let circles = [
+	const MAX = 150;
+
+	const groups = [
 		{
-			color: "magenta",
-			styles: "position: absolute; animation: MtoC 10s ease infinite alternate;"
+			color: 'yellow',
+			styles: 'position: absolute; animation: YtoM 10s ease infinite alternate;'
 		},
 		{
-			color: "yellow",
+			color: 'cyan',
 			styles:
-				"position: absolute; margin: -90px 60px 0 0; animation: YtoM 14s ease infinite alternate;"
+				'position: absolute; margin: -9px 93px 0 0px; animation: CtoY 14s ease infinite alternate;'
 		},
 		{
-			color: "cyan",
+			color: 'magenta',
 			styles:
-				"position: absolute; margin: 40px 0 0 74px; animation: CtoY 25s ease infinite alternate;"
+				'position: absolute; margin: 57px 0 0 -74px; animation: MtoC 25s ease infinite alternate;'
 		}
 	];
 
-	let other_circles = [
-		{
-			color: "yellow",
-			styles: "position: absolute; animation: YtoM 10s ease infinite alternate;"
-		},
-		{
-			color: "cyan",
-			styles:
-				"position: absolute; margin: -9px 93px 0 0px; animation: CtoY 14s ease infinite alternate;"
-		},
-		{
-			color: "magenta",
-			styles:
-				"position: absolute; margin: 57px 0 0 -74px; animation: MtoC 25s ease infinite alternate;"
-		}
-	];
+	let input = $state(75);
+
+	// The input can be empty or out of range while the visitor types.
+	const count = $derived(Math.min(MAX, Math.max(1, Math.round(Number(input) || 1))));
 </script>
 
 <div class="flex flex-col">
-	<div class="flex p-5">
-		<label for="circle_num"># of Circles</label>
-		<input name="circle_num" type="number">
+	<div class="flex items-center gap-2 p-5">
+		<label for="circle-count"># of Circles</label>
+		<input
+			id="circle-count"
+			type="number"
+			min="1"
+			max={MAX}
+			bind:value={input}
+			class="w-20 rounded border border-gray-300 px-1 dark:border-gray-700 dark:bg-black"
+		/>
 	</div>
 	<div class="relative mt-[375px] h-[375px]">
-		{#each other_circles as { color, styles }}
-			<div class="flex justify-center items-center">
-				<Concentric {color} {styles} />
+		{#each groups as { color, styles } (color)}
+			<div class="flex items-center justify-center">
+				<Concentric {count} {color} {styles} />
 			</div>
 		{/each}
 	</div>
-	<!-- <div class="relative pt-[275px] h-[600px]">
-		{#each circles as { color, styles }}
-			<div class="flex justify-center items-center">
-				<Concentric {color} {styles} />
-			</div>
-		{/each}
-	</div> -->
 </div>

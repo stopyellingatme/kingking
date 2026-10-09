@@ -1,41 +1,29 @@
-<script>
-	import { onMount, tick } from "svelte";
+<script lang="ts">
+	interface Props {
+		// Changes the hue before it is drawn. Example: (hue) => hue / 3
+		modifier?: (hue: number) => number;
+		rotate?: boolean;
+	}
 
-	// Example: (hue) => ((hue/3).toFixed(0))
-	export let modifier = null;
-	export let rotate = false;
+	let { modifier, rotate = false }: Props = $props();
 
-	let dir = 0;
-	let hue = 0;
-	onMount(() => {
-		if (rotate || modifier) {
-			tick();
-			setInterval(() => {
-				hanldeDir();
-			}, 100);
-		}
+	let hue = $state(0);
+	let step = 1;
+
+	$effect(() => {
+		if (!rotate && !modifier) return;
+
+		// Move the hue from 0 to 360 and back again.
+		const timer = setInterval(() => {
+			if (hue >= 360) step = -1;
+			else if (hue <= 0) step = 1;
+			hue += step;
+		}, 100);
+
+		return () => clearInterval(timer);
 	});
 
-	function hanldeDir() {
-		if (dir === 0) {
-			hue += 1;
-			if (hue >= 360) {
-				dir = 1;
-			}
-		} else {
-			hue -= 1;
-			if (hue <= 0) {
-				dir = 0;
-			}
-		}
-	}
+	const shown = $derived(modifier ? Math.round(modifier(hue)) : hue);
 </script>
 
-{#if modifier}
-	<div
-		style="filter: hue-rotate({(hue = modifier(hue))}deg)"
-		class="w-full h-8 my-1 rounded opti-gradient-01"
-	/>
-{:else}
-	<div style="filter: hue-rotate({hue}deg)" class="w-full h-8 my-1 rounded opti-gradient-01" />
-{/if}
+<div style="filter: hue-rotate({shown}deg)" class="opti-gradient-01 my-1 h-8 w-full rounded"></div>
