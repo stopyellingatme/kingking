@@ -82,10 +82,10 @@ test('the gradient editor adds colours and changes the gradient type', async ({ 
 
 test('a tap on the zeal page adds a blob', async ({ page }) => {
 	await page.goto('/fun/zeal');
-	const blobs = page.locator('svg ellipse');
-	await expect(blobs).toHaveCount(11);
-	await page.locator('svg[role="img"]').click({ position: { x: 100, y: 100 } });
-	await expect(blobs).toHaveCount(12);
+	const canvas = page.locator('canvas');
+	await expect(canvas).toHaveAttribute('data-blobs', '11');
+	await canvas.click({ position: { x: 100, y: 100 } });
+	await expect(canvas).toHaveAttribute('data-blobs', '12');
 });
 
 test('unknown URLs show the 404 page', async ({ page }) => {

@@ -1,14 +1,14 @@
 <script lang="ts">
+	import { createRenderer, MAX_BLOBS, type Fills } from '$lib/goo';
 	import { animate, reducedMotion } from '$lib/motion';
 
-	// Each blob fills with a gradient from the first colour to the second.
-	const gradients = [
+	// Each blob fills with a gradient from the edge colour to the light colour.
+	const gradients: Fills = [
 		['#fbbf24', '#f472b6'],
 		['#2dd4bf', '#38bdf8'],
 		['#818cf8', '#e879f9']
 	];
 
-	const MAX = 24;
 	const PUSH_RADIUS = 170;
 
 	interface Blob {
@@ -27,9 +27,13 @@
 		phase: number;
 	}
 
-	let width = $state(0);
-	let height = $state(0);
-	let blobs = $state<Blob[]>([]);
+	// The blobs change on each frame. They are not Svelte state, so the page does not update
+	// the DOM on each frame. Only the canvas changes.
+	let blobs: Blob[] = [];
+	let count = $state(0);
+	let width = 0;
+	let height = 0;
+	let canvas: HTMLCanvasElement;
 	let gravity = $state(false);
 	let nextId = 0;
 	let calm = false;
@@ -60,6 +64,7 @@
 
 	function fill() {
 		blobs = Array.from({ length: 11 }, () => make(Math.random() * width, Math.random() * height));
+		count = blobs.length;
 	}
 
 	// Squash the blob along one axis and stretch it along the other.
@@ -152,12 +157,29 @@
 
 	$effect(() => {
 		calm = reducedMotion();
-		return animate(step);
-	});
+		const renderer = createRenderer(canvas, gradients);
 
-	// Fill the canvas when it first has a size.
-	$effect(() => {
-		if (width > 0 && height > 0 && blobs.length === 0) fill();
+		const observer = new ResizeObserver(() => {
+			width = canvas.clientWidth;
+			height = canvas.clientHeight;
+			// A ratio above 1.5 costs more than it adds to soft edges.
+			renderer?.resize(width, height, Math.min(devicePixelRatio, 1.5));
+			if (blobs.length === 0 && width > 0 && height > 0) fill();
+			// A new size clears the canvas. Draw again now, so the canvas does not flash empty.
+			renderer?.draw(blobs);
+		});
+		observer.observe(canvas);
+
+		const stop = animate((dt, time) => {
+			step(dt, time);
+			renderer?.draw(blobs);
+		});
+
+		return () => {
+			stop();
+			observer.disconnect();
+			renderer?.dispose();
+		};
 	});
 
 	function local(event: PointerEvent) {
@@ -177,7 +199,8 @@
 			const blob = make(point.x, point.y, true);
 			blob.vx = 0;
 			blob.vy = 0;
-			blobs = [...blobs.slice(-(MAX - 1)), blob];
+			blobs = [...blobs.slice(-(MAX_BLOBS - 1)), blob];
+			count = blobs.length;
 		}
 		press = undefined;
 		if (event.pointerType !== 'mouse') pointer = undefined;
@@ -203,50 +226,25 @@
 		<span class="opacity-70">Move to push. Tap to add a blob.</span>
 	</div>
 
-	<div
-		class="sky relative min-h-80 flex-1 overflow-hidden"
-		bind:clientWidth={width}
-		bind:clientHeight={height}
-	>
-		<svg
+	<div class="relative min-h-80 flex-1 overflow-hidden">
+		<div class="sky absolute -inset-1/2" aria-hidden="true"></div>
+		<canvas
+			bind:this={canvas}
 			class="absolute inset-0 h-full w-full touch-none"
-			viewBox="0 0 {width || 1} {height || 1}"
-			role="img"
 			aria-label="Soft blobs of colour that bounce"
+			data-blobs={count}
 			onpointerdown={down}
 			onpointermove={(event) => (pointer = local(event))}
 			onpointerup={up}
 			onpointercancel={() => (pointer = press = undefined)}
 			onpointerleave={() => (pointer = undefined)}
-		>
-			<defs>
-				<!-- Blur the blobs, then make the edges sharp again, so near blobs join like liquid. -->
-				<filter id="zeal-goo" x="-20%" y="-20%" width="140%" height="140%">
-					<feGaussianBlur in="SourceGraphic" stdDeviation="16" />
-					<feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 12 -5" />
-				</filter>
-				{#each gradients as [from, to], i (i)}
-					<radialGradient id="zeal-fill-{i}" cx="35%" cy="30%" r="80%">
-						<stop offset="0" stop-color={to} />
-						<stop offset="1" stop-color={from} />
-					</radialGradient>
-				{/each}
-			</defs>
-			<g filter="url(#zeal-goo)" opacity="0.85">
-				{#each blobs as blob (blob.id)}
-					<ellipse
-						rx={blob.r}
-						ry={blob.r}
-						fill="url(#zeal-fill-{blob.fill})"
-						transform="translate({blob.x} {blob.y}) scale({blob.sx} {blob.sy})"
-					/>
-				{/each}
-			</g>
-		</svg>
+		></canvas>
 	</div>
 </div>
 
 <style>
+	/* The gradient layer is twice the size of the canvas and moves with a transform.
+	   A transform does not make the browser paint the layer again. */
 	.sky {
 		background: linear-gradient(
 			120deg,
@@ -255,8 +253,7 @@
 			var(--color-violet-100),
 			var(--color-teal-50)
 		);
-		background-size: 300% 300%;
-		animation: gradient 30s ease infinite;
+		animation: sky 30s ease-in-out infinite alternate;
 	}
 
 	:global(.dark) .sky {
@@ -267,5 +264,14 @@
 			var(--color-teal-950),
 			var(--color-black)
 		);
+	}
+
+	@keyframes sky {
+		from {
+			transform: translate(-20%, -15%);
+		}
+		to {
+			transform: translate(20%, 15%);
+		}
 	}
 </style>
