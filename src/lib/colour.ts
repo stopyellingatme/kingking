@@ -25,17 +25,6 @@ export function fromHex(hex: string): Rgb {
 	return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
-// The grey that has the same brightness as the colour, to the eye.
-export function grey([r, g, b]: Rgb): string {
-	const linear = (c: number) => {
-		const v = c / 255;
-		return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
-	};
-	const y = 0.2126 * linear(r) + 0.7152 * linear(g) + 0.0722 * linear(b);
-	const v = y <= 0.0031308 ? y * 12.92 : 1.055 * y ** (1 / 2.4) - 0.055;
-	return toHex([v * 255, v * 255, v * 255]);
-}
-
 // Turns the hue of a colour by a number of degrees, and keeps its saturation and lightness.
 export function turnHue(hex: string, degrees: number): string {
 	const [r, g, b] = fromHex(hex).map((c) => c / 255);
@@ -48,4 +37,11 @@ export function turnHue(hex: string, degrees: number): string {
 	let h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
 	h = h * 60 + degrees;
 	return toHex(hslToRgb(((h % 360) + 360) % 360, s, l));
+}
+
+// The colour at `t` between two colours, from 0 (the first) to 1 (the second).
+export function mix(a: string, b: string, t: number): string {
+	const from = fromHex(a);
+	const to = fromHex(b);
+	return toHex(from.map((c, i) => c + (to[i] - c) * t) as Rgb);
 }

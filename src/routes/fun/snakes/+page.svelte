@@ -5,7 +5,7 @@
 
 <Meta
 	title="Snakes · TK"
-	description="Discs of colour that seem to turn. The picture does not move. Your eyes make the motion."
+	description="Discs of colour that seem to turn. Throw one to spin it. When it stops, it still seems to turn."
 />
 
 <Snakes />

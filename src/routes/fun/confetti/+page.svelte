@@ -5,7 +5,7 @@
 
 <Meta
 	title="Confetti · TK"
-	description="All the balls have one colour. The stripes make them look different. Drag a ball across the middle."
+	description="All the balls have one colour. The stripes make them look different. Throw a ball across the middle."
 />
 
 <Confetti />

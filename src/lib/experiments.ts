@@ -29,12 +29,12 @@ export const experiments: Experiment[] = [
 	{
 		slug: 'snakes',
 		name: 'SNAKES',
-		note: 'Discs of colour that seem to turn. The picture does not move. Your eyes make the motion.'
+		note: 'Discs of colour that seem to turn. Throw one to spin it. When it stops, it still seems to turn.'
 	},
 	{
 		slug: 'afterimage',
 		name: 'AFTERIMAGE',
-		note: 'Look at a dot for 20 seconds. Then the picture goes grey, but you still see colour.'
+		note: 'Look at a dot for 20 seconds. Then only outlines stay, and your eyes fill them with colour.'
 	},
 	{
 		slug: 'chaser',
@@ -44,6 +44,6 @@ export const experiments: Experiment[] = [
 	{
 		slug: 'confetti',
 		name: 'CONFETTI',
-		note: 'All the balls have one colour, but the stripes make them look different. Drag one across.'
+		note: 'All the balls have one colour, but the stripes make them look different. Throw one across.'
 	}
 ];

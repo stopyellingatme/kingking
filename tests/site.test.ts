@@ -92,59 +92,58 @@ test('a tap on the zeal page adds a blob', async ({ page }) => {
 	await expect(canvas).toHaveAttribute('data-blobs', '12');
 });
 
-test('the snakes page draws the discs and changes the colours', async ({ page }) => {
+test('the snakes page draws discs, and a tap spins one', async ({ page }) => {
 	await page.goto('/fun/snakes');
 	const canvas = page.locator('canvas');
-	await page.getByRole('button', { name: 'CANDY' }).click();
-	await expect(canvas).toHaveAttribute('data-scheme', 'CANDY');
-	await expect
-		.poll(() =>
-			canvas.evaluate((element: HTMLCanvasElement) => {
-				const context = element.getContext('2d')!;
-				const { data } = context.getImageData(0, 0, element.width, element.height);
-				let opaque = 0;
-				for (let i = 3; i < data.length; i += 4 * 97) if (data[i] > 0) opaque++;
-				return opaque;
-			})
-		)
-		.toBeGreaterThan(1000);
+	await expect(canvas).not.toHaveAttribute('data-discs', '0');
+	const opaque = () =>
+		canvas.evaluate((element: HTMLCanvasElement) => {
+			const { data } = element.getContext('2d')!.getImageData(0, 0, element.width, element.height);
+			let count = 0;
+			for (let i = 3; i < data.length; i += 4 * 97) if (data[i] > 200) count++;
+			return count;
+		});
+	await expect.poll(opaque).toBeGreaterThan(1000);
+	await page.getByRole('button', { name: 'FLIP' }).click();
+	await expect(page.getByRole('button', { name: 'FLIP' })).toHaveAttribute('aria-pressed', 'true');
 });
 
-test('the afterimage page goes grey after the stare time', async ({ page }) => {
+test('the afterimage page shows outlines after the stare time', async ({ page }) => {
 	await page.clock.install();
 	await page.goto('/fun/afterimage');
-	const scene = page.getByRole('img', { name: 'A sunset over the sea' });
+	const scene = page.getByRole('img', { name: /Soft orbs of colour/ });
 	await expect(scene).toHaveAttribute('data-view', 'stare');
+	await expect(scene.locator('circle[fill^="url(#orb-"]')).toHaveCount(5);
 	await page.getByRole('button', { name: 'START' }).click();
 	await page.clock.runFor(21_000);
-	await expect(scene).toHaveAttribute('data-view', 'grey');
+	await expect(scene).toHaveAttribute('data-view', 'outline');
+	await expect(scene.locator('circle[fill="none"][stroke="currentColor"]')).toHaveCount(5);
 	await page.getByRole('button', { name: 'TRUE COLOURS' }).click();
 	await expect(scene).toHaveAttribute('data-view', 'colour');
 });
 
-test('the chaser hides one dot at a time', async ({ page }) => {
+test('the chaser hides one dot in each ring at a time', async ({ page }) => {
 	await page.goto('/fun/chaser');
-	const ring = page.getByRole('img', { name: /A ring of dots/ });
-	const first = await ring.getAttribute('data-hidden');
-	await expect(ring).not.toHaveAttribute('data-hidden', first!);
-	await expect(ring.locator('circle[visibility="hidden"]')).toHaveCount(1);
+	const rings = page.getByRole('img', { name: /Rings of dots/ });
+	const first = await rings.getAttribute('data-hidden');
+	await expect(rings).not.toHaveAttribute('data-hidden', first!);
+	await expect(rings.locator('g.ring')).toHaveCount(3);
+	await page.getByRole('slider', { name: 'RINGS' }).fill('1');
+	await expect(rings.locator('g.ring')).toHaveCount(1);
 });
 
-test('a confetti ball takes the colour of the side it is on', async ({ page }) => {
+test('SWAP moves the confetti balls to the other side', async ({ page }) => {
 	await page.goto('/fun/confetti');
-	await page.getByRole('button', { name: 'CYCLE' }).click();
-	const ball = page.locator('g.ball[data-side="a"]').first();
-	const index = await ball.evaluate((element) =>
-		[...element.parentNode!.children].indexOf(element)
-	);
-	const area = (await page.getByRole('img', { name: /Balls of one colour/ }).boundingBox())!;
-	const box = (await ball.boundingBox())!;
-	await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
-	await page.mouse.down();
-	await page.mouse.move(area.x + area.width * 0.8, area.y + area.height / 2, { steps: 8 });
-	await page.mouse.up();
-	const moved = page.locator('svg[aria-label^="Balls"] > *').nth(index);
-	await expect(moved).toHaveAttribute('data-side', 'b');
+	const canvas = page.locator('canvas');
+	// The page makes the balls after it knows the size of the canvas.
+	await expect(canvas).not.toHaveAttribute('data-balls', '0');
+	const total = Number(await canvas.getAttribute('data-balls'));
+	const left = Number(await canvas.getAttribute('data-left'));
+	expect(total).toBeGreaterThan(0);
+	await page.getByRole('button', { name: 'SWAP' }).click();
+	await expect
+		.poll(async () => Number(await canvas.getAttribute('data-left')), { timeout: 8000 })
+		.toBeCloseTo(total - left, -0.5);
 });
 
 test('unknown URLs show the 404 page', async ({ page }) => {

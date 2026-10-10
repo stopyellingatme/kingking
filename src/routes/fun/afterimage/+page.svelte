@@ -5,7 +5,7 @@
 
 <Meta
 	title="Afterimage · TK"
-	description="Look at a dot in a strange sunset for 20 seconds. Then the picture goes grey, but you see colour."
+	description="Look at a dot between orbs of colour for 20 seconds. Then only outlines stay, and your eyes fill them with colour."
 />
 
 <Afterimage />
