@@ -25,5 +25,25 @@ export const experiments: Experiment[] = [
 		slug: 'zeal',
 		name: 'ZEAL',
 		note: 'Soft, bouncy blobs of colour. Push them, tap to add more, and turn on gravity.'
+	},
+	{
+		slug: 'snakes',
+		name: 'SNAKES',
+		note: 'Discs of colour that seem to turn. The picture does not move. Your eyes make the motion.'
+	},
+	{
+		slug: 'afterimage',
+		name: 'AFTERIMAGE',
+		note: 'Look at a dot for 20 seconds. Then the picture goes grey, but you still see colour.'
+	},
+	{
+		slug: 'chaser',
+		name: 'CHASER',
+		note: 'Dots go out one at a time. Look at the cross, and a dot of the opposite colour goes around.'
+	},
+	{
+		slug: 'confetti',
+		name: 'CONFETTI',
+		note: 'All the balls have one colour, but the stripes make them look different. Drag one across.'
 	}
 ];

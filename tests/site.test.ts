@@ -7,7 +7,11 @@ const pages = [
 	{ path: '/fun/gradients', title: 'Gradients · TK' },
 	{ path: '/fun/circular', title: 'Circular · TK' },
 	{ path: '/fun/m1', title: 'M1 · TK' },
-	{ path: '/fun/zeal', title: 'Zeal · TK' }
+	{ path: '/fun/zeal', title: 'Zeal · TK' },
+	{ path: '/fun/snakes', title: 'Snakes · TK' },
+	{ path: '/fun/afterimage', title: 'Afterimage · TK' },
+	{ path: '/fun/chaser', title: 'Chaser · TK' },
+	{ path: '/fun/confetti', title: 'Confetti · TK' }
 ];
 
 for (const { path, title } of pages) {
@@ -86,6 +90,61 @@ test('a tap on the zeal page adds a blob', async ({ page }) => {
 	await expect(canvas).toHaveAttribute('data-blobs', '11');
 	await canvas.click({ position: { x: 100, y: 100 } });
 	await expect(canvas).toHaveAttribute('data-blobs', '12');
+});
+
+test('the snakes page draws the discs and changes the colours', async ({ page }) => {
+	await page.goto('/fun/snakes');
+	const canvas = page.locator('canvas');
+	await page.getByRole('button', { name: 'CANDY' }).click();
+	await expect(canvas).toHaveAttribute('data-scheme', 'CANDY');
+	await expect
+		.poll(() =>
+			canvas.evaluate((element: HTMLCanvasElement) => {
+				const context = element.getContext('2d')!;
+				const { data } = context.getImageData(0, 0, element.width, element.height);
+				let opaque = 0;
+				for (let i = 3; i < data.length; i += 4 * 97) if (data[i] > 0) opaque++;
+				return opaque;
+			})
+		)
+		.toBeGreaterThan(1000);
+});
+
+test('the afterimage page goes grey after the stare time', async ({ page }) => {
+	await page.clock.install();
+	await page.goto('/fun/afterimage');
+	const scene = page.getByRole('img', { name: 'A sunset over the sea' });
+	await expect(scene).toHaveAttribute('data-view', 'stare');
+	await page.getByRole('button', { name: 'START' }).click();
+	await page.clock.runFor(21_000);
+	await expect(scene).toHaveAttribute('data-view', 'grey');
+	await page.getByRole('button', { name: 'TRUE COLOURS' }).click();
+	await expect(scene).toHaveAttribute('data-view', 'colour');
+});
+
+test('the chaser hides one dot at a time', async ({ page }) => {
+	await page.goto('/fun/chaser');
+	const ring = page.getByRole('img', { name: /A ring of dots/ });
+	const first = await ring.getAttribute('data-hidden');
+	await expect(ring).not.toHaveAttribute('data-hidden', first!);
+	await expect(ring.locator('circle[visibility="hidden"]')).toHaveCount(1);
+});
+
+test('a confetti ball takes the colour of the side it is on', async ({ page }) => {
+	await page.goto('/fun/confetti');
+	await page.getByRole('button', { name: 'CYCLE' }).click();
+	const ball = page.locator('g.ball[data-side="a"]').first();
+	const index = await ball.evaluate((element) =>
+		[...element.parentNode!.children].indexOf(element)
+	);
+	const area = (await page.getByRole('img', { name: /Balls of one colour/ }).boundingBox())!;
+	const box = (await ball.boundingBox())!;
+	await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
+	await page.mouse.down();
+	await page.mouse.move(area.x + area.width * 0.8, area.y + area.height / 2, { steps: 8 });
+	await page.mouse.up();
+	const moved = page.locator('svg[aria-label^="Balls"] > *').nth(index);
+	await expect(moved).toHaveAttribute('data-side', 'b');
 });
 
 test('unknown URLs show the 404 page', async ({ page }) => {
